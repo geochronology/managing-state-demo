@@ -2,22 +2,47 @@ import { useState, memo, createContext, useContext } from "react";
 import { useQuery } from 'react-query'
 import styles from '../styles/Home.module.css'
 
+// HOME HOC
 export default function Home() {
-  const [country, setCountry] = useState("CA")
+  return (
+    <CountryProvider>
+      <HomeContent />
+    </CountryProvider>
+  )
+}
 
+// HOME CONTENT
+function HomeContent() {
   return (
     <div className={styles.container}>
-      <CountryDetails country={country} />
-      <CountryPicker country={country} setCountry={setCountry} />
+      <CountryDetails />
+      <CountryPicker />
     </div>
   )
 }
 
-function CountryDetails({ country }) {
+// CREATE CONTEXT 
+const CountryContext = createContext()
+
+// CONTEXT PROVIDER
+function CountryProvider({ children }) {
+  const [country, setCountry] = useState("CA")
+
+  return <CountryContext.Provider value={{ country, setCountry }}>
+    {children}
+  </CountryContext.Provider>
+}
+
+// COUNTRY DETAILS
+function CountryDetails() {
+  const { country } = useContext(CountryContext)
+
   return <h1>{country}</h1>
 }
 
-function CountryPicker({ country, setCountry }) {
+// COUNTRY PICKER
+function CountryPicker() {
+  const { country, setCountry } = useContext(CountryContext)
 
   return (
     <select
