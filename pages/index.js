@@ -12,14 +12,14 @@ export default function Home() {
 }
 
 // HOME CONTENT
-function HomeContent() {
+const HomeContent = memo(() => {
   return (
     <div className={styles.container}>
       <CountryDetails />
       <CountryPicker />
     </div>
   )
-}
+})
 
 // CREATE CONTEXT 
 const CountryContext = createContext()
