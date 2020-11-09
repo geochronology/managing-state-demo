@@ -3,16 +3,21 @@ import { useQuery } from 'react-query'
 import styles from '../styles/Home.module.css'
 
 export default function Home() {
+  const [country, setCountry] = useState("CA")
+
   return (
     <div className={styles.container}>
-      <CountryDetails />
-      <CountryPicker />
+      <CountryDetails country={country} />
+      <CountryPicker country={country} setCountry={setCountry} />
     </div>
   )
 }
 
-function CountryPicker() {
-  const [country, setCountry] = useState("CA")
+function CountryDetails({ country }) {
+  return <h1>{country}</h1>
+}
+
+function CountryPicker({ country, setCountry }) {
 
   return (
     <select
@@ -27,6 +32,3 @@ function CountryPicker() {
   )
 }
 
-function CountryDetails() {
-  return <h1>Country</h1>
-}
